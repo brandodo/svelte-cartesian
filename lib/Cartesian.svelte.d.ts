@@ -5,7 +5,11 @@ type RestProps = SvelteHTMLElements["div"]
 
 interface Props {
   /** A Svelte component. */
-  Component: Component | ComponentType
+  Component: typeof import("svelte") extends { mount: any }
+    ? // Svelte 5 type
+      Component
+    : // Svelte 4 type
+      ComponentType
   /** An object containing prop names and an array of potential values. */
   props: Record<string, any[]>
   /**
