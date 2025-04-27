@@ -1,4 +1,4 @@
-import type { Component, ComponentType, SvelteComponent } from "svelte"
+import type { SvelteComponent } from "svelte"
 import type { SvelteHTMLElements } from "svelte/elements"
 
 type RestProps = SvelteHTMLElements["div"]
@@ -6,10 +6,8 @@ type RestProps = SvelteHTMLElements["div"]
 interface Props {
   /** A Svelte component. */
   Component: typeof import("svelte") extends { mount: any }
-    ? // Svelte 5 type
-      Component
-    : // Svelte 4 type
-      ComponentType
+    ? import("svelte").ComponentType // Svelte 4 detected
+    : import("svelte").Component // Svelte 5 detected
   /** An object containing prop names and an array of potential values. */
   props: Record<string, any[]>
   /**
